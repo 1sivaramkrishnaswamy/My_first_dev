@@ -1,0 +1,16 @@
+train <- read.csv("train.csv", header = TRUE)
+##
+#The above line reads in training data
+
+test <- read.csv("test.csv", header = TRUE)
+##
+#Add newvar001 to the test set to allow combining data sets
+
+test.newvar001 <- data.frame(newvar001 = rep("None", nrow(test)), test[,])
+##
+#New obj test.newvar001 created with this new variable or feature or column
+#The rep fuction is a replicating function that fills every element in the new vector newvar001
+#with the value of "None" for every element for n rows of the object, which is the test data set
+#The data.frame function uses the new vector newvar001 and adds it to the existing data frame which is
+#the one called 'test' with a filter [] (square brackets) - , or comma in square brackets splits rows and columns
+
