@@ -5,12 +5,45 @@ train <- read.csv("train.csv", header = TRUE)
 test <- read.csv("test.csv", header = TRUE)
 ##
 #Add newvar001 to the test set to allow combining data sets
+#The newvar001 is a critical or logical test - usually 1 or 0 representing the result of a measurement of a single variable
+#Examples : Variable GDP - 1 - above Benchmark 0 below Benchmark ; Survived 1 - Survived 0 - Died; Budget 1 - On track 0 - Not on track
+#A graphic or chart can show how these are split across categories based on the newvar001 which has a series of 1 or 0 to each row 
+
+#Separate charts can be shown on one page to compare how different countries performed - GDP or different budgets and so on for the variable
+# Slide one - Airlines - Flights by Airline - Delta, United, American - comparison of flights to Houston from Boston
+# newvar001 = 1 or 0 - 1 - On time (error - 10 mins either way) ; Delayed (more than 10 mins)
+# year, month, day, airline, delay, origin, destination, carriertype
+# var001, var002, var003, var004, var005, var006, var007, var008
+# digits, digits, digits, factor, digits, string, string, factor
+# 2017, 01, 01, Delta, 20, BOS, DWH
+
 
 test.newvar001 <- data.frame(newvar001 = rep("None", nrow(test)), test[,])
 ##
 #New obj test.newvar001 created with this new variable or feature or column
 #The rep fuction is a replicating function that fills every element in the new vector newvar001
 #with the value of "None" for every element for n rows of the object, which is the test data set
-#The data.frame function uses the new vector newvar001 and adds it to the existing data frame which is
+<- as.factor(data.combined$var008)The data.frame function uses the new vector newvar001 and adds it to the existing data frame which is
 #the one called 'test' with a filter [] (square brackets) - , or comma in square brackets splits rows and columns
+
+### - Combine data sets - train set and the test.newvar001 set (the attempt here is to predict the newvar001 in the test set 20%)
+### - Typically, the data is split 80:20 with 80% used to train the model and then predict the Y or the variable newvar001 in the Test Set
+
+data.combined <- rbind(train, test.newvar001)
+#This function rbind, binds the two data frames at a row level - one on top of another, row by row (number of columns need to be equal)
+
+data.combined$newvar001 <- as.factor(data.combined$newvar001)
+data.combined$category001  <- as.factor(data.combined$category001)
+#Factors are created for csv files typically imported with stringsAsFactors = F and then, we set those variables of interest as factors
+#A factor automatically groups the data into levels
+
+#Variable008 - Has categories of interest. If we wanted to see a distribution of this variable, first:
+data.combined$var008 <- as.factor(data.combined$var008)
+#Next, we can see the distribution of the various sub-categories - subcat001, subcat002 etc. 
+table(data.combined$airline)
+
+#Visualize 3 way relationship - e.g. airline (var004), 
+
+
+
 
